@@ -1,0 +1,859 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/25/2026 8:30:27 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ANNE"
+  DTS:CreatorName="ANNE\Anne"
+  DTS:DTSID="{67C03E71-CF13-4B4B-920B-9FFFB351137B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Export to jup"
+  DTS:PackageType="5"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{7C929D60-0793-4C31-A704-4A0DEA77E973}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[src.Crime]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E2C32FB6-7CEA-4B2B-9E9F-9D2D1C24B4E6}"
+      DTS:ObjectName="src.Crime">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=Anne\MSSQLSERVER2;Initial Catalog=HRM_Crime;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Export to jup-{E2C32FB6-7CEA-4B2B-9E9F-9D2D1C24B4E6}Anne\MSSQLSERVER2.HRM_Crime;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[tgt.Crime]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{C2F114D7-A902-4AFC-A0AF-3453E50B5731}"
+      DTS:ObjectName="tgt.Crime">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\data\GitHub\BZIA_25_26\PYTHON\Class Materials\Pats\Data Science\Hrm_crime Project\data\Hrm_Crime.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="10"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EventDate"
+              DTS:DTSID="{0FEE6335-F7A2-48DB-9137-75CB4EF30E15}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Year"
+              DTS:DTSID="{82E3AF88-0D33-4432-8350-FFE1934FC1FA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Month"
+              DTS:DTSID="{AD1C1444-C9A5-492C-977A-1E1951998DB8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Day"
+              DTS:DTSID="{E0527860-CF22-4577-937C-EDE9DA5D03D6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="IsWeekday"
+              DTS:DTSID="{249262C4-2323-4C7B-AD28-CE10EC1A484D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="location"
+              DTS:DTSID="{337BC7E9-7D93-40C6-8893-9B614201480E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Total_Crimes"
+              DTS:DTSID="{61735B1D-FADA-4958-9291-1F8E27EC0D36}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="7"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Crime_Severity_Level"
+              DTS:DTSID="{F88BB621-034D-47A8-8B8C-9134AD334162}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="36"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Crime_Category"
+              DTS:DTSID="{F2221642-363E-4591-9436-6911EBD1B0C3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="x"
+              DTS:DTSID="{096CCB2B-B761-4FA6-BA97-A7DCC796BF1E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="y"
+              DTS:DTSID="{F1746407-5569-4A99-BC5E-5A0524D33ED3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Crime_Classification_Code"
+              DTS:DTSID="{61C38473-BA08-46A8-BC4A-E0989DDD8944}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Export to jup"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D1D9FB73-9CEB-4929-80BD-E0EEA89FFAD8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Export to jup"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Export to jup\Flat File Destination"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Destination"
+              localeId="1033"
+              name="Flat File Destination"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+                <property
+                  dataType="System.Boolean"
+                  description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
+                  name="EscapeQualifier">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Export to jup\Flat File Destination.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[tgt.Crime]"
+                  connectionManagerRefId="Package.ConnectionManagers[tgt.Crime]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[EventDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EventDate"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[EventDate]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[EventDate]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Year]"
+                      cachedDataType="i4"
+                      cachedName="Year"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Year]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Year]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Month]"
+                      cachedDataType="i4"
+                      cachedName="Month"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Month]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Month]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Day]"
+                      cachedDataType="i4"
+                      cachedName="Day"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Day]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Day]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[IsWeekday]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="IsWeekday"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[IsWeekday]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsWeekday]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[location]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="location"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[location]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[location]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Total_Crimes]"
+                      cachedDataType="i4"
+                      cachedName="Total_Crimes"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Total_Crimes]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Total_Crimes]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Crime_Severity_Level]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="Crime_Severity_Level"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Severity_Level]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Severity_Level]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Crime_Category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="36"
+                      cachedName="Crime_Category"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Category]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Category]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[x]"
+                      cachedDataType="r8"
+                      cachedName="x"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[x]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[x]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[y]"
+                      cachedDataType="r8"
+                      cachedName="y"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[y]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[y]" />
+                    <inputColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].Columns[Crime_Classification_Code]"
+                      cachedDataType="i2"
+                      cachedName="Crime_Classification_Code"
+                      externalMetadataColumnId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Classification_Code]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Classification_Code]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[EventDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="EventDate" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Month]"
+                      dataType="i4"
+                      name="Month" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Day]"
+                      dataType="i4"
+                      name="Day" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[IsWeekday]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="IsWeekday" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[location]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="location" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Total_Crimes]"
+                      dataType="i4"
+                      name="Total_Crimes" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Severity_Level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="Crime_Severity_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="36"
+                      name="Crime_Category" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[x]"
+                      dataType="r8"
+                      name="x" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[y]"
+                      dataType="r8"
+                      name="y" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[Crime_Classification_Code]"
+                      dataType="i2"
+                      name="Crime_Classification_Code" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\Export to jup\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select c.EventDate
+       ,cal.Year
+       ,cal.Month
+       ,cal.Day
+       ,case cal.IsWeekday
+            when 1 then 'True'
+            else 'False'
+            end as IsWeekday
+       ,Crime_Classification_Code
+       ,Crime_Severity_Level 
+       ,Crime_Category
+       ,l.location
+       ,count(*) as 'Total_Crimes'
+       ,l.x 
+       ,l.y 
+from fact.Crime c
+inner join dim.Location l 
+on c.Location_ID = l.Location_ID
+inner join dim.Crime cr 
+ON c.Crime_ID = cr.Crime_ID
+inner join dim.Calendar as cal
+on cal.DateValue = c.EventDate
+group by c.EventDate
+       ,cal.Year
+       ,cal.Month
+       ,cal.Day
+       ,case cal.IsWeekday
+            when 1 then 'True'
+            else 'False'
+            end 
+       ,Crime_Classification_Code
+       ,Crime_Severity_Level 
+       ,Crime_Category
+       ,l.location
+       ,l.x 
+       ,l.y</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Export to jup\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[src.Crime]"
+                  connectionManagerRefId="Package.ConnectionManagers[src.Crime]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[EventDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EventDate]"
+                      length="10"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[EventDate]"
+                      name="EventDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Year]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Year]"
+                      name="Year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Month]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Month]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Month]"
+                      name="Month"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Day]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Day]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Day]"
+                      name="Day"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsWeekday]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsWeekday]"
+                      length="5"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsWeekday]"
+                      name="IsWeekday"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[location]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[location]"
+                      length="50"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[location]"
+                      name="location"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Total_Crimes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Total_Crimes]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Total_Crimes]"
+                      name="Total_Crimes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Severity_Level]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Severity_Level]"
+                      length="7"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Severity_Level]"
+                      name="Crime_Severity_Level"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Category]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Category]"
+                      length="36"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Category]"
+                      name="Crime_Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[x]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[x]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[x]"
+                      name="x"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[y]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[y]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[y]"
+                      name="y"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Classification_Code]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Classification_Code]"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].Columns[Crime_Classification_Code]"
+                      name="Crime_Classification_Code"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EventDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="EventDate" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Month]"
+                      dataType="i4"
+                      name="Month" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Day]"
+                      dataType="i4"
+                      name="Day" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsWeekday]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="IsWeekday" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[location]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="location" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Total_Crimes]"
+                      dataType="i4"
+                      name="Total_Crimes" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Severity_Level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="Crime_Severity_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="36"
+                      name="Crime_Category" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[x]"
+                      dataType="r8"
+                      name="x" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[y]"
+                      dataType="r8"
+                      name="y" />
+                    <externalMetadataColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Crime_Classification_Code]"
+                      dataType="i2"
+                      name="Crime_Classification_Code" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EventDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EventDate]"
+                      name="EventDate" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      name="Year" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Month]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Month]"
+                      name="Month" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Day]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Day]"
+                      name="Day" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsWeekday]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsWeekday]"
+                      name="IsWeekday" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Classification_Code]"
+                      dataType="i2"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Classification_Code]"
+                      name="Crime_Classification_Code" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[location]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[location]"
+                      name="location" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[x]"
+                      dataType="r8"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[x]"
+                      name="x" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[y]"
+                      dataType="r8"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[y]"
+                      name="y" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Total_Crimes]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Total_Crimes]"
+                      name="Total_Crimes" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Severity_Level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Severity_Level]"
+                      name="Crime_Severity_Level" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="36"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Crime_Category]"
+                      name="Crime_Category" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Export to jup.Paths[OLE DB Source Output]"
+              endId="Package\Export to jup\Flat File Destination.Inputs[Flat File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Export to jup\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\File System Task"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{C739C590-F720-4986-8E51-48745CD07F4B}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="File System Task"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteFile"
+          TaskSourcePath="{C2F114D7-A902-4AFC-A0AF-3453E50B5731}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A796F141-C926-4771-B2E7-2F1B658740BD}"
+      DTS:From="Package\File System Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Export to jup" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="140,42.6666666666667"
+          Id="Package\Export to jup"
+          TopLeft="150.624993266538,209.368418753808" />
+        <NodeLayout
+          Size="161.333333333334,42.6666666666667"
+          Id="Package\File System Task"
+          TopLeft="139.374993769452,90.3157884820347" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="220.333326851328,132.982455148701">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.3859636051063"
+              Start="0,0"
+              End="0,68.8859636051063">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.8859636051063" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Export to jup">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Export to jup\OLE DB Source"
+          TopLeft="145.624993490055,50.6315783914437" />
+        <NodeLayout
+          Size="173.333333333334,42.6666666666667"
+          Id="Package\Export to jup\Flat File Destination"
+          TopLeft="144.999993517995,205.947366159791" />
+        <EdgeLayout
+          Id="Package\Export to jup.Paths[OLE DB Source Output]"
+          TopLeft="222.958326823388,93.2982450581104">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.70833336127339,112.649121101681"
+              Start="0,0"
+              End="8.70833336127339,105.149121101681">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.3245605508404" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,52.3245605508404"
+                    Point2="0,56.3245605508404"
+                    Point3="4,56.3245605508404" />
+                  <mssgle:LineSegment
+                    End="4.70833336127339,56.3245605508404" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.70833336127339,56.3245605508404"
+                    Point2="8.70833336127339,56.3245605508404"
+                    Point3="8.70833336127339,60.3245605508404" />
+                  <mssgle:LineSegment
+                    End="8.70833336127339,105.149121101681" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Export to jup\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
