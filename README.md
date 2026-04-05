@@ -61,7 +61,7 @@ What started as a personal safety inquiry became a complete data engineering and
 
 ## 📦 The Data
 
-**Source:** [HRM Open Data Hub]([https://catalogue.hrm.opendata.arcgis.com/](https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9))
+**Source:** [HRM Open Data Hub](https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9)
 
 The dataset reports **general occurrence crimes** — the broadest category of police-reported incidents in HRM. It is published as a **7-day rolling window**, meaning at any given time only the last 7 days of data are publicly accessible. There is no historical archive.
 
