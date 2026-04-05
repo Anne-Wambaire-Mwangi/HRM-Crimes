@@ -240,7 +240,7 @@ Power BI connects directly to SQL Server for the warehouse data and imports the 
 
 ## 📊 Dashboard Summary
 
-> 💡 **Tip:** Open [`Crime_Analytics.pbix`](./Crime_Analytics.pbix) in Power BI Desktop to interact with slicers and tooltips. Use [`Crime_Analytics.pdf`](./Crime_Analytics.pdf) for a quick static walkthrough of all pages.
+> 💡 **Tip:** Open [`Crime_Analytics.pbix`]([./Crime_Analytics.pbix](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics%20.pbix) in Power BI Desktop to interact with slicers and tooltips. Use [`Crime_Analytics.pdf`](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics.pdf)) for a quick static walkthrough of all pages.
 
 ---
 
