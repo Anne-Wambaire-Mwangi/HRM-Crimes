@@ -30,6 +30,15 @@
 | [`ETL/Halifax_Crime.dtsx`](./ETL/Halifax_Crime.dtsx) | SSIS ETL package |
 | [`Python/HRM_Clustering.ipynb`](./Python/HRM_Clustering.ipynb) | K-Means clustering notebook |
 
+## 📥 Project Files
+
+| File | Description |
+|---|---|
+| [⬇️ Download Crime_Analytics.pbix](../../raw/main/Crime_Analytics.pbix) | Power BI report — open in Power BI Desktop |
+| [⬇️ Download Crime_Analytics.pdf](../../raw/main/Crime_Analytics.pdf) | Static PDF export of all dashboard pages |
+| [⬇️ Download Halifax_Crime.dtsx](../../raw/main/ETL/Halifax_Crime.dtsx) | SSIS ETL package |
+| [⬇️ Download HRM_Clustering.ipynb](../../raw/main/Python/HRM_Clustering.ipynb) | K-Means clustering notebook |
+
 > 💡 **New to the project?** Start with the PDF for a quick visual overview, then open the `.pbix` file in Power BI Desktop to explore the interactive slicers and tooltips.
 
 ---
