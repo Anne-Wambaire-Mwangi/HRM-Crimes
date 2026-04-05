@@ -414,7 +414,124 @@ With March selected, actual data shows values in the 348–422 range before the 
 10. **K-Means clustering on coordinates alone produced criminologically coherent clusters.** Distinct crime type profiles emerged without any crime-type information fed into the model — confirming that geography is a strong predictor of crime type in HRM.
 
 ---
+## 🧭 Recommendations
 
+> These recommendations are drawn directly from the data findings. They are 
+> intended to be practical and actionable for different audiences — newcomers, 
+> residents, and institutional stakeholders. They are not policy directives; 
+> they are data-informed suggestions.
+
+---
+
+### 🏠 For Newcomers & International Students
+
+If you are new to Halifax — as this project's author was — here is what the 
+data actually says about navigating the city safely:
+
+- **Gloria McCluskey Ave, Gottingen St, Mumford Rd, Spring Garden Rd, and 
+  Barrington St** are the five highest-incident locations across the full 
+  observation period. These are busy urban corridors — exercise the same 
+  awareness you would on any high-traffic city street, particularly during 
+  weekday hours when incidents peak.
+
+- **Assault is the dominant crime type (54% of all incidents)** and occurs 
+  across all areas of HRM — not just downtown. Being alert to your surroundings 
+  is relevant regardless of which part of the city you are in.
+
+- **The Urban Core (downtown Halifax/Dartmouth peninsula) concentrates 96% of 
+  all robberies.** If you are out in the downtown area, be mindful of your 
+  belongings, especially at night on quieter streets.
+
+- **Weekdays see 72% of reported crimes** — this likely reflects when crimes 
+  are *discovered and reported* rather than when they occur, but it is worth 
+  noting that the city is not quieter on weekdays from a safety perspective.
+
+- Crime volume has grown every month of the observation window. Halifax is 
+  generally a safe city relative to many urban centres, but the upward trend 
+  warrants awareness rather than alarm. **Stay informed, not afraid.**
+
+---
+
+### 🏘️ For Residents & Community Members
+
+- **Mumford Road's surge from 2 to 17 incidents between February and March** 
+  is the most significant location-level shift in the dataset. Residents and 
+  businesses in that corridor should be aware of this trend and consider 
+  engaging with local community safety initiatives.
+
+- **Property crimes (Break & Enter, Theft from Vehicle) are showing suburban 
+  creep** — they are growing as a proportion of crime in areas outside the 
+  Urban Core. Residents in Bedford, Clayton Park, and suburban Dartmouth 
+  should be particularly attentive to vehicle and property security.
+
+- **Remote East and Rural North clusters have very low crime volumes**, but 
+  assault is still the top reported incident type even there. No area is 
+  entirely without incident — community vigilance matters everywhere.
+
+- Consider participating in or supporting **Neighbourhood Watch programs**, 
+  particularly in corridors showing rising incident counts.
+
+---
+
+### 👮 For Law Enforcement & Public Safety Planners
+
+- **Geographic concentration is extreme:** The Urban Core accounts for 72% of 
+  assaults, 85% of theft from vehicle, and 96% of robberies. Targeted patrol 
+  presence and intervention resources in the downtown peninsula would have 
+  disproportionate impact on overall crime reduction.
+
+- **Weekday-weighted resource allocation is supported by the data.** With 72% 
+  of incidents occurring on weekdays, patrol schedules and community outreach 
+  programs that concentrate on Monday–Friday coverage are better aligned with 
+  the actual incident distribution than weekend-heavy deployment.
+
+- **The 2–3 week cyclical pattern in the 7-day moving average** suggests 
+  crime activity is not random — there may be underlying behavioural or 
+  environmental rhythms driving the peaks. Further investigation of what 
+  occurs during peak weeks (events, weather, social factors) could inform 
+  proactive rather than reactive deployment.
+
+- **March's simultaneous increase in both volume and severity** is the most 
+  urgent signal in the dataset. The combination of more crimes *and* more 
+  serious crimes in the same month warrants a review of whether current 
+  resource levels are appropriately scaled for the spring period.
+
+- **Robbery's near-total concentration in the Urban Core** (47 of 49 incidents) 
+  suggests a micro-location intervention strategy — identifying and addressing 
+  the specific streets or establishments associated with robbery incidents could 
+  yield measurable reductions.
+
+---
+
+### 🏛️ For Municipal Policy Makers
+
+- **The data collection gap is a policy problem.** HRM's 7-day rolling 
+  publication window means longitudinal crime analysis is impossible without 
+  independent collection efforts like this one. Publishing a historical archive 
+  or extending the rolling window to 90 days would dramatically improve the 
+  city's capacity for evidence-based public safety planning — at minimal cost.
+
+- **Crime is growing at a sustained rate** (242 → 341 → 445 across three 
+  months). While the Q2 projection suggests a possible plateauing in the 
+  400–480 range, the trend does not yet show signs of reversing. Early 
+  investment in prevention and community programs is more cost-effective than 
+  reactive enforcement after volumes rise further.
+
+- **Suburban property crime is an emerging concern.** The Suburban cluster 
+  shows meaningful Break & Enter (16) and Theft from Vehicle (17) volumes 
+  relative to its size. As HRM's suburban population grows, so too may the 
+  demand for expanded policing coverage outside the Urban Core.
+
+- **Open data is a public good.** This entire project was built on publicly 
+  available data. Expanding the fields published (e.g. time of day, incident 
+  resolution status) would enable richer community-led analysis and more 
+  informed public discourse about safety in HRM.
+
+---
+
+> 📌 *All recommendations are based on observed data from January 14 – 
+> March 2026 (68 days). As data collection continues, these recommendations 
+> will be revisited and updated to reflect emerging patterns.*
 ## 🎯 Purpose & Audience
 
 **Primary audience:**
