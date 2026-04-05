@@ -62,7 +62,7 @@ This is that project.
 
 ## 📦 The Data
 
-**Source:** (https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9)
+**Source:** [HRM Open Data Hub](https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9)
 
 The dataset covers **general occurrence crimes** - the broadest category of police-reported incidents in HRM. The catch is that it's published as a **7-day rolling window** - only the last 7 days are ever publicly available, and there's no historical archive.
 
@@ -406,7 +406,7 @@ This is the view I trust most right now. Based on March alone, the tooltip at **
 
 5. **The Urban Core is where crime concentrates** - 72% of assaults, 85% of theft from vehicle, and 96% of robberies all happen there. If you want impact, that's where to focus.
 
-6. **Robbery is almost exclusively an Urban Core phenomenon** - zero robbery incidents in Rural North or Remote East over the full period.
+6. **Robbery is almost exclusively an Urban Core phenomenon** — zero robbery incidents were recorded in Rural North or Remote East over the full period. It is worth noting that Halifax is currently experiencing significant construction activity in the downtown core; some of what is classified as robbery in this dataset may reflect construction site theft, which would naturally concentrate in the same Urban Core geography where active development is most dense.
 
 7. **Mumford Road went from 2 incidents in February to 17 in March** - the biggest single location shift in my data. I think this could indicate geographic displacement and it's worth watching closely.
 
@@ -462,7 +462,8 @@ If you're new to Halifax like I was, here's what the data actually says - not ru
 
 - **March is a warning sign.** It's the first month where both volume and severity rose simultaneously. I'd want to understand whether current resource levels are calibrated for this trajectory before Q2 progresses further.
 
-- **Robbery's near-total Urban Core concentration** (47 of 49 incidents) makes it a strong candidate for a micro-location intervention strategy - identifying the specific streets or establishments most associated with robbery incidents could produce measurable results with targeted effort.
+- **Robbery's near-total Urban Core concentration** (47 of 49 incidents) makes it a strong candidate for a micro-location intervention strategy. However,  context matters here — Halifax's downtown is currently undergoing significant construction, and some of these incidents may reflect construction site theft rather than street robbery. I'd recommend cross-referencing robbery incident  locations against active construction sites before drawing conclusions about  the nature of these crimes. If construction theft is a meaningful driver, the intervention strategy looks very different from one targeting street-level 
+robbery.
 
 ---
 
@@ -475,6 +476,8 @@ If you're new to Halifax like I was, here's what the data actually says - not ru
 - **Suburban property crime is emerging.** As HRM's suburban population grows, demand for policing coverage outside the Urban Core is likely to grow with it. The data is already showing the early signs.
 
 - **Open data enables community-led analysis.** I built something meaningful on what's publicly available. If HRM expanded what it publishes - even just adding time of day or incident resolution status - the quality of analysis that residents, researchers, and planners could do would improve significantly.
+  
+- - **Construction activity and crime classification** — If a meaningful portion of Urban Core robbery incidents are linked to construction site theft, this has implications for how the city manages site security requirements for downtown development projects. Mandatory site security standards and better coordination between development permits and police awareness could be a low-cost, high-impact policy lever.
 
 ---
 
@@ -594,7 +597,7 @@ GitHub: [@Anne-Wambaire-Mwangi](https://github.com/Anne-Wambaire-Mwangi)
 
 ## 📄 License
 
-This project uses publicly available data from the [HRM Open Data Hub](https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9)). All analysis, code, and documentation are my own original work.
+This project uses publicly available data from the [HRM Open Data Hub](https://data-hrm.hub.arcgis.com/datasets/f6921c5b12e64d17b5cd173cafb23677_0/explore?location=44.686932%2C-63.228361%2C9). All analysis, code, and documentation are my own original work.
 
 ---
 
