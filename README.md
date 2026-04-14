@@ -23,7 +23,7 @@
 
 | File | Description |
 |---|---|
-| [⬇️ Download Crime_Analytics.pbix](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics%20.pbix) | Power BI report - open in Power BI Desktop |
+| [⬇️ Download Crime_Analytics.pbix](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics.pbix) | Power BI report - open in Power BI Desktop |
 | [⬇️ Download Crime_Analytics.pdf](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics.pdf) | Static PDF export of all dashboard pages |
 | [⬇️ Download Halifax_Crime.dtsx](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/ETL/Halifax_Crime.dtsx) | SSIS ETL package |
 | [⬇️ Download HRM_Clustering.ipynb](https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Python/HRM_Clustering.ipynb) | K-Means clustering notebook |
