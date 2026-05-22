@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRM Crime Analytics — Anne Wambaire Mwangi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0f0a;
+  --bg-card: #141a12;
+  --bg-card-hover: #1a2216;
+  --surface: #1e2a1a;
+  --border: #2a3926;
+  --border-light: #3a4d34;
+  --text: #e8efe6;
+  --text-muted: #8a9e84;
+  --text-dim: #5c6e56;
+  --accent: #b8d4a3;
+  --accent-bright: #d4ecc2;
+  --accent-gold: #d4c490;
+  --accent-gold-dim: #a09060;
+  --accent-rose: #c49a9a;
+  --accent-blue: #8ab4c4;
+  --severity-high: #c46a5a;
+  --severity-med: #d4a84a;
+  --severity-low: #7aaa6a;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* ─── Noise texture overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Layout ─── */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+/* ─── Hero ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 6rem 0 4rem;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s ease forwards;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s ease forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s ease forwards;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s ease forwards;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero-meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.hero-meta-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent-bright);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  opacity: 0;
+  animation: fadeUp 0.8s 1.2s ease forwards;
+}
+
+.hero-scroll .arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: pulse 2s infinite;
+}
+
+/* ─── Section styling ─── */
+section { padding: 5rem 0; }
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.section-desc {
+  color: var(--text-muted);
+  max-width: 680px;
+  margin-bottom: 3rem;
+  font-size: 1.05rem;
+}
+
+/* ─── KPI Strip ─── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.kpi {
+  background: var(--bg-card);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.kpi:hover { background: var(--bg-card-hover); }
+
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent-bright);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-value.rose { color: var(--accent-rose); }
+.kpi-value.gold { color: var(--accent-gold); }
+.kpi-value.blue { color: var(--accent-blue); }
+
+.kpi-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.kpi-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 0.4rem;
+}
+
+/* ─── Intro narrative ─── */
+.narrative {
+  max-width: 720px;
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+
+.narrative p { margin-bottom: 1.5rem; }
+.narrative strong { color: var(--text); font-weight: 600; }
+
+/* ─── Tech stack ─── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.stack-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.stack-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stack-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+.stack-card:hover::before { opacity: 1; }
+
+.stack-card h4 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.stack-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Pipeline ─── */
+.pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.pipeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+}
+
+.pipeline-step {
+  position: relative;
+  padding: 1.5rem 0 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pipeline-step:last-child { border-bottom: none; }
+
+.pipeline-step::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 1.85rem;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  z-index: 1;
+}
+
+.pipeline-step.active::before { background: var(--accent); }
+
+.pipeline-step h4 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.pipeline-step p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ─── Insights grid ─── */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+  counter-reset: insight;
+}
+
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  counter-increment: insight;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.insight-card:hover { border-color: var(--border-light); }
+
+.insight-card::before {
+  content: counter(insight, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--border);
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  line-height: 1;
+}
+
+.insight-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  padding-right: 2.5rem;
+}
+
+.insight-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.insight-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  margin-bottom: 0.75rem;
+}
+
+.insight-tag.volume { background: rgba(184,212,163,0.15); color: var(--accent); }
+.insight-tag.spatial { background: rgba(138,180,196,0.15); color: var(--accent-blue); }
+.insight-tag.temporal { background: rgba(212,196,144,0.15); color: var(--accent-gold); }
+.insight-tag.severity { background: rgba(196,106,90,0.15); color: var(--severity-high); }
+
+/* ─── Cluster table ─── */
+.cluster-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+table.data-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--bg-card);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+table.data-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+table.data-table tr:last-child td { border-bottom: none; }
+
+table.data-table tr:hover td { background: var(--bg-card-hover); }
+
+table.data-table td:last-child { font-weight: 600; color: var(--accent-bright); }
+
+/* ─── Monthly breakdown ─── */
+.month-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.month-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.month-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.month-card.jan::after { background: var(--accent); width: 22%; }
+.month-card.feb::after { background: var(--accent-gold); width: 33%; }
+.month-card.mar::after { background: var(--accent-rose); width: 43%; }
+
+.month-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.month-crimes {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1;
+  margin: 0.75rem 0;
+}
+
+.month-card.jan .month-crimes { color: var(--accent); }
+.month-card.feb .month-crimes { color: var(--accent-gold); }
+.month-card.mar .month-crimes { color: var(--accent-rose); }
+
+.month-detail {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.month-detail strong { color: var(--text-muted); }
+
+.change-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.change-badge.up { background: rgba(196,106,90,0.2); color: var(--severity-high); }
+.change-badge.baseline { background: rgba(138,180,196,0.15); color: var(--accent-blue); }
+
+/* ─── Recommendations ─── */
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.rec-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  transition: all 0.3s;
+}
+
+.rec-card:hover { border-color: var(--border-light); }
+
+.rec-audience {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.rec-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.rec-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ─── Chart Bars (CSS-only) ─── */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 2rem 0;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 60px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.bar-track {
+  height: 28px;
+  background: var(--surface);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0;
+}
+
+.bar-fill.rose { background: linear-gradient(90deg, #9a5a5a, var(--accent-rose)); }
+.bar-fill.gold { background: linear-gradient(90deg, #8a7a40, var(--accent-gold)); }
+.bar-fill.blue { background: linear-gradient(90deg, #4a7a8a, var(--accent-blue)); }
+
+.bar-val {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+/* ─── Cluster visual (CSS donut-ish) ─── */
+.cluster-visual {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.cluster-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.cluster-item:hover { border-color: var(--border-light); }
+
+.cluster-pct {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.cluster-item:nth-child(1) .cluster-pct { color: var(--accent-bright); }
+.cluster-item:nth-child(2) .cluster-pct { color: var(--accent-gold); }
+.cluster-item:nth-child(3) .cluster-pct { color: var(--accent-blue); }
+.cluster-item:nth-child(4) .cluster-pct { color: var(--accent-rose); }
+
+.cluster-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.cluster-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ─── Downloads / Files ─── */
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.file-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.file-ext {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.file-card h4 { font-size: 0.95rem; font-weight: 500; }
+
+.file-card p { font-size: 0.8rem; color: var(--text-dim); }
+
+/* ─── Limitations ─── */
+.limits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.limit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.limit-row:last-child { border-bottom: none; }
+.limit-row:hover { background: var(--bg-card); }
+
+.limit-row .lim-what { color: var(--text); font-weight: 500; }
+.limit-row .lim-impact { color: var(--text-muted); }
+.limit-row .lim-fix { color: var(--accent); font-size: 0.82rem; }
+
+.limit-header {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+}
+
+/* ─── Footer ─── */
+footer {
+  padding: 4rem 0 3rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--accent-bright); }
+
+.footer-note {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* ─── Dividers ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 3rem 0;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .container { padding: 0 1.25rem; }
+  section { padding: 3rem 0; }
+  .bar-row { grid-template-columns: 100px 1fr 50px; }
+  .limit-row { grid-template-columns: 1fr; gap: 0.3rem; padding: 1rem 1.25rem; }
+  .limit-header { display: none; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .hero-meta { gap: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Full-stack data analytics project</p>
+    <h1>HRM Crime<br><em>Analytics</em></h1>
+    <p class="hero-subtitle">An end-to-end pipeline covering ETL, data warehousing, unsupervised machine learning, and interactive reporting — built to answer one question: <strong>is Halifax safe?</strong></p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Records</span>
+        <span class="hero-meta-value">1,028 incidents</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Coverage</span>
+        <span class="hero-meta-value">68 days</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Period</span>
+        <span class="hero-meta-value">Jan 14 – Mar 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Status</span>
+        <span class="hero-meta-value">Active collection</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- ═══════════ KPIs ═══════════ -->
+    <section class="fade-in">
+      <div class="kpi-strip">
+        <div class="kpi">
+          <div class="kpi-value">1,028</div>
+          <div class="kpi-label">Total Crimes</div>
+          <div class="kpi-sub">Jan–Mar 2026</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value rose">54.5%</div>
+          <div class="kpi-label">Assault Share</div>
+          <div class="kpi-sub">560 of 1,028</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value gold">+30.5%</div>
+          <div class="kpi-label">Month-over-Month</div>
+          <div class="kpi-sub">Feb → Mar 2026</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value blue">7.2%</div>
+          <div class="kpi-label">High Severity</div>
+          <div class="kpi-sub">74 incidents</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value">4</div>
+          <div class="kpi-label">Geo-Clusters</div>
+          <div class="kpi-sub">K-Means (coordinates only)</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value gold">5</div>
+          <div class="kpi-label">Report Pages</div>
+          <div class="kpi-sub">Power BI + DAX</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ INTRODUCTION ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Introduction</div>
+      <h2 class="section-title">A question that felt personal</h2>
+      <div class="narrative">
+        <p>I'm an international student, and when I arrived in Halifax I had no idea what the city was really like. I'd heard rumours that Halifax was a human trafficking hotspot, and I wanted to find out if there was any data to back that up.</p>
+        <p>When I went looking, I couldn't find human trafficking data — but I found something else: the <strong>HRM Open Data Hub</strong> publishes a rolling 7-day dataset of general occurrence crimes. The catch? No historical archive. Only the last 7 days are ever available.</p>
+        <p>So I built one myself. I manually downloaded the CSV every other day starting January 14, 2026, and loaded each file through my SSIS pipeline into a SQL Server data warehouse. What started as a personal safety question turned into a full data engineering and analytics project.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ CRIME BY CATEGORY ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Crime Breakdown</div>
+      <h2 class="section-title">Five categories, one dominant</h2>
+      <p class="section-desc">Assault comprises more than half of all reported incidents — and it appears in every geographic cluster, not just downtown.</p>
+      <div class="bar-chart" id="crimeChart">
+        <div class="bar-row">
+          <div class="bar-label">Assault</div>
+          <div class="bar-track"><div class="bar-fill rose" data-width="100%"></div></div>
+          <div class="bar-val">560</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Theft from Vehicle</div>
+          <div class="bar-track"><div class="bar-fill" data-width="37%"></div></div>
+          <div class="bar-val">208</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Break &amp; Enter</div>
+          <div class="bar-track"><div class="bar-fill gold" data-width="17%"></div></div>
+          <div class="bar-val">96</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Theft of Vehicle</div>
+          <div class="bar-track"><div class="bar-fill blue" data-width="15%"></div></div>
+          <div class="bar-val">82</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Robbery</div>
+          <div class="bar-track"><div class="bar-fill rose" data-width="9%"></div></div>
+          <div class="bar-val">49</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ MONTHLY TREND ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Monthly Trend</div>
+      <h2 class="section-title">A sustained climb, not a spike</h2>
+      <p class="section-desc">Crime grew every single month without exception. The rate of growth is slowing, but volume is still rising — and March brought the highest severity rate yet.</p>
+      <div class="month-cards">
+        <div class="month-card jan">
+          <h4>January</h4>
+          <span class="change-badge baseline">Baseline</span>
+          <div class="month-crimes">242</div>
+          <p class="month-detail">Assault already at <strong>50%</strong> of total. Gloria McCluskey Ave and Gottingen St established as hotspots immediately. High severity at <strong>6.6%</strong>.</p>
+        </div>
+        <div class="month-card feb">
+          <h4>February</h4>
+          <span class="change-badge up">+40.9%</span>
+          <div class="month-crimes">341</div>
+          <p class="month-detail">Sharpest jump in dataset. High severity actually <strong>dropped to 6.2%</strong> — more crimes, but proportionally fewer serious ones. Spring Garden Rd entered top 5.</p>
+        </div>
+        <div class="month-card mar">
+          <h4>March</h4>
+          <span class="change-badge up">+30.5%</span>
+          <div class="month-crimes">445</div>
+          <p class="month-detail">Most concerning: highest volume <strong>and</strong> highest severity (<strong>8.3%</strong>) simultaneously. Mumford Rd surged from 2 → 17 incidents.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ TECH STACK ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Tech Stack</div>
+      <h2 class="section-title">How I built it</h2>
+      <p class="section-desc">A full-stack pipeline from manual CSV collection through to interactive Power BI reporting, with unsupervised ML in between.</p>
+      <div class="stack-grid">
+        <div class="stack-card">
+          <h4>Data Engineering</h4>
+          <p>SSIS Foreach Loop pipeline with staging, incremental dimension loading, fact table, and pre-aggregated reporting tables. Error rows redirected, not dropped.</p>
+          <div class="stack-tags">
+            <span class="tag">SSIS</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">Star Schema</span>
+            <span class="tag">Visual Studio</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <h4>Machine Learning</h4>
+          <p>K-Means clustering on coordinates only (k=4). Optimal k found via elbow method + KneeLocator, validated with silhouette score. Geography alone predicted crime type.</p>
+          <div class="stack-tags">
+            <span class="tag">scikit-learn</span>
+            <span class="tag">pandas</span>
+            <span class="tag">numpy</span>
+            <span class="tag">plotly</span>
+            <span class="tag">kneed</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <h4>Business Intelligence</h4>
+          <p>5-page Power BI report with DAX measures for KPIs, MoM comparison, 7-day moving average, severity percentages, and Q2 forecast with confidence intervals.</p>
+          <div class="stack-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">DAX</span>
+            <span class="tag">Power Query</span>
+            <span class="tag">Forecasting</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <h4>Data Warehouse</h4>
+          <p>Star schema with IncidentID grain. Staging → Dimensions → Fact → Reporting layers. Designed for rerunning without duplicates and future event type expansion.</p>
+          <div class="stack-tags">
+            <span class="tag">Star Schema</span>
+            <span class="tag">Fact Table</span>
+            <span class="tag">Dimensions</span>
+            <span class="tag">Incremental Load</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PIPELINE ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">ETL Pipeline</div>
+      <h2 class="section-title">Six-step data flow</h2>
+      <p class="section-desc">From CSV files to Power BI — every step designed to be re-runnable, fault-tolerant, and transparent about errors.</p>
+      <div class="pipeline">
+        <div class="pipeline-step active">
+          <h4>01 — Enumerate Crime Data</h4>
+          <p>Foreach Loop container iterates over all CSVs in source folder. File path dynamically bound to package variable — drop any number of new files and run once.</p>
+        </div>
+        <div class="pipeline-step active">
+          <h4>02 — Staging</h4>
+          <p>Flat File Source → OLE DB Destination into stg.HalifaxCrime. Error rows redirected (not failed) — pipeline keeps running and logs bad records for review.</p>
+        </div>
+        <div class="pipeline-step active">
+          <h4>03 — Dimension Loading</h4>
+          <p>Three dimensions loaded incrementally: dim.Crime (type, category, severity), dim.Event (reporting type), dim.Location (street address). NOT IN subquery prevents duplicates.</p>
+        </div>
+        <div class="pipeline-step active">
+          <h4>04 — Fact Table</h4>
+          <p>fact.CrimeIncidents — one row per incident with foreign keys to all dimensions plus date key, coordinates (x, y), and source record identifier.</p>
+        </div>
+        <div class="pipeline-step active">
+          <h4>05 — Reporting Tables</h4>
+          <p>Pre-aggregated views: rpt.ByCategory, rpt.ByLocation, rpt.BySeverity. Lighter query layer for Power BI rather than hitting the fact table for every summary visual.</p>
+        </div>
+        <div class="pipeline-step">
+          <h4>06 — Calendar Table (DAX)</h4>
+          <p>Generated in Power BI — spans ~6 years with year, month, week number, and weekday/weekend flags for time intelligence measures and forecasting.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ GEO-CLUSTERS ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Geo-Cluster Analysis</div>
+      <h2 class="section-title">Four zones, distinct crime profiles</h2>
+      <p class="section-desc">K-Means was fed only x/y coordinates — no crime type data at all. Yet the clusters came back criminologically coherent. Geography alone predicts crime type in HRM.</p>
+
+      <div class="cluster-visual">
+        <div class="cluster-item">
+          <div class="cluster-pct">786</div>
+          <div class="cluster-name">Urban Core</div>
+          <div class="cluster-desc">Downtown Halifax/Dartmouth peninsula. All 5 crime types, highest density. 96% of all robberies.</div>
+        </div>
+        <div class="cluster-item">
+          <div class="cluster-pct">148</div>
+          <div class="cluster-name">Suburban</div>
+          <div class="cluster-desc">Bedford, Clayton Park, suburban Dartmouth. Property crime more prominent.</div>
+        </div>
+        <div class="cluster-item">
+          <div class="cluster-pct">21</div>
+          <div class="cluster-name">Rural North</div>
+          <div class="cluster-desc">Fall River, Sackville corridor. Low volume, assault-dominant. Zero robberies.</div>
+        </div>
+        <div class="cluster-item">
+          <div class="cluster-pct">12</div>
+          <div class="cluster-name">Remote East</div>
+          <div class="cluster-desc">Eastern Passage, Lawrencetown. Isolated incidents, only 3 crime types present.</div>
+        </div>
+      </div>
+
+      <div class="cluster-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Cluster</th>
+              <th>Assault</th>
+              <th>Break &amp; Enter</th>
+              <th>Robbery</th>
+              <th>Theft from Vehicle</th>
+              <th>Theft of Vehicle</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Urban Core</td><td>406</td><td>75</td><td>47</td><td>189</td><td>69</td><td>786</td></tr>
+            <tr><td>Suburban</td><td>107</td><td>16</td><td>2</td><td>17</td><td>6</td><td>148</td></tr>
+            <tr><td>Rural North</td><td>13</td><td>3</td><td>0</td><td>2</td><td>3</td><td>21</td></tr>
+            <tr><td>Remote East</td><td>6</td><td>2</td><td>0</td><td>0</td><td>4</td><td>12</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ KEY INSIGHTS ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Key Insights</div>
+      <h2 class="section-title">What the data reveals</h2>
+      <p class="section-desc">Ten findings from 68 days of manually collected crime data across Halifax Regional Municipality.</p>
+      <div class="insights-grid">
+        <div class="insight-card">
+          <span class="insight-tag severity">Severity</span>
+          <h4>Assault dominates everywhere</h4>
+          <p>54.5% of all incidents and present in every geographic cluster — not a downtown-only problem. It follows people regardless of location.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag volume">Volume</span>
+          <h4>Unbroken monthly growth</h4>
+          <p>242 → 341 → 445 across Jan–Mar. The rate of growth is slowing, but volume is still climbing every single month.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag severity">Severity</span>
+          <h4>March raised both alarms</h4>
+          <p>Highest volume and highest severity (8.3%) simultaneously. That's the combination worth watching most closely.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag temporal">Temporal</span>
+          <h4>72% happen on weekdays</h4>
+          <p>Property crimes get discovered and reported during business hours. The distribution reflects reporting behaviour as much as occurrence.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag spatial">Spatial</span>
+          <h4>Urban Core concentrates crime</h4>
+          <p>72% of assaults, 85% of theft from vehicle, and 96% of robberies all happen in the downtown peninsula.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag spatial">Spatial</span>
+          <h4>Robbery is urban-exclusive</h4>
+          <p>Zero robbery incidents in Rural North or Remote East. It needs victim proximity that rural areas don't provide.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag volume">Volume</span>
+          <h4>Mumford Road surged</h4>
+          <p>2 incidents in February → 17 in March. The biggest single location shift in the dataset — possible geographic displacement.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag spatial">Spatial</span>
+          <h4>Top 5 are corridors, not neighbourhoods</h4>
+          <p>All hotspot locations are busy urban thoroughfares: Gloria McCluskey Ave, Gottingen St, Mumford Rd, Spring Garden Rd, Barrington St.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag temporal">Temporal</span>
+          <h4>2–3 week cyclical pattern</h4>
+          <p>The 7-day moving average shows rhythmic peaks and troughs, with rising floors — even quiet weeks are getting busier.</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-tag spatial">Spatial</span>
+          <h4>Geography predicts crime type</h4>
+          <p>K-Means used only coordinates — no crime type input — yet produced criminologically distinct clusters. Geography is a strong natural predictor.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ Q2 PROJECTION ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Q2 Projection</div>
+      <h2 class="section-title">What's ahead</h2>
+      <div class="narrative">
+        <p>Built entirely in Power BI using DAX. The forecast extends from observed data (~397–434 in late March/early April) through June 2026. The March baseline projection — which I trust most — suggests a possible <strong>plateau in the 400–480 crimes/month range</strong> through Q2.</p>
+        <p>The confidence interval widens deliberately as it projects further out. With only 68 days of training data, showing a narrow cone would be dishonest. The lower bound never drops below March's observed floor, meaning the model treats March's activity level as the new baseline minimum.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ RECOMMENDATIONS ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Recommendations</div>
+      <h2 class="section-title">Data-informed suggestions</h2>
+      <p class="section-desc">Not policy directives — these come directly from the numbers, intended for different audiences who might engage with this project.</p>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-audience">Newcomers &amp; International Students</div>
+          <h4>Be informed, not afraid</h4>
+          <p>The five highest-incident locations are busy urban corridors. Assault is everywhere at 54% — awareness matters in every part of the city. 96% of robberies are Urban Core, and weekdays see 72% of reported crimes.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-audience">Residents &amp; Community</div>
+          <h4>Watch the suburban shift</h4>
+          <p>Property crime is creeping into suburbs — Bedford, Clayton Park, suburban Dartmouth. Mumford Road's 2→17 surge is the sharpest location-level change in the dataset. Even rural clusters have assault incidents.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-audience">Law Enforcement</div>
+          <h4>Urban Core, weekday-weighted</h4>
+          <p>The Urban Core is the highest-leverage target. Data supports weekday-weighted deployment. The 2–3 week cycle suggests behavioural rhythms worth investigating. March is a warning sign for resource calibration.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-audience">Municipal Policy</div>
+          <h4>Publish historical data</h4>
+          <p>The 7-day rolling window is a gap in HRM's own analytical capacity. Extending to 90 days would enable evidence-based planning at minimal cost. Open data enables community-led analysis like this project.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ DATA LIMITATIONS ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Transparency</div>
+      <h2 class="section-title">Limitations &amp; known gaps</h2>
+      <p class="section-desc">Every gap documented. Every dip in the moving average checked against this list before drawing conclusions.</p>
+      <div class="limits-list">
+        <div class="limit-row limit-header">
+          <span class="lim-what">Limitation</span>
+          <span class="lim-impact">Impact</span>
+          <span class="lim-fix">Mitigation</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">7-day rolling source window</span>
+          <span class="lim-impact">Can't backfill missed days</span>
+          <span class="lim-fix">Every gap documented in README</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">Missing collection days</span>
+          <span class="lim-impact">Artificial dips in moving average</span>
+          <span class="lim-fix">Flagged throughout analysis</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">No time-of-day field</span>
+          <span class="lim-impact">Can't analyse peak crime hours</span>
+          <span class="lim-fix">Flagged as future improvement</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">Only 68 days of data</span>
+          <span class="lim-impact">Wide forecast confidence intervals</span>
+          <span class="lim-fix">Kept confidence cone honest</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">1 error record (OBJECTID overflow)</span>
+          <span class="lim-impact">Excluded from analysis</span>
+          <span class="lim-fix">Surfaced in ETL dashboard</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">Coordinate duplication</span>
+          <span class="lim-impact">1,028 incidents → 795 unique points</span>
+          <span class="lim-fix">Acknowledged and documented</span>
+        </div>
+        <div class="limit-row">
+          <span class="lim-what">No demographic data</span>
+          <span class="lim-impact">Can't profile victims or offenders</span>
+          <span class="lim-fix">Outside scope; public data limitation</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PROJECT FILES ═══════════ -->
+    <section class="fade-in">
+      <div class="section-label">Project Files</div>
+      <h2 class="section-title">Download &amp; explore</h2>
+      <p class="section-desc">Start with the PDF for a quick visual overview, then open the .pbix in Power BI Desktop to explore interactive slicers and tooltips.</p>
+      <div class="files-grid">
+        <a href="https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics.pbix" class="file-card">
+          <span class="file-ext">.pbix</span>
+          <h4>Crime_Analytics.pbix</h4>
+          <p>Interactive Power BI report — 5 pages with cross-filtering slicers</p>
+        </a>
+        <a href="https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Crime_Analytics.pdf" class="file-card">
+          <span class="file-ext">.pdf</span>
+          <h4>Crime_Analytics.pdf</h4>
+          <p>Static export of all dashboard pages — quick visual overview</p>
+        </a>
+        <a href="https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/ETL/Halifax_Crime.dtsx" class="file-card">
+          <span class="file-ext">.dtsx</span>
+          <h4>Halifax_Crime.dtsx</h4>
+          <p>SSIS ETL package — full pipeline in Visual Studio format</p>
+        </a>
+        <a href="https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes/raw/main/Python/HRM_Clustering.ipynb" class="file-card">
+          <span class="file-ext">.ipynb</span>
+          <h4>HRM_Clustering.ipynb</h4>
+          <p>K-Means clustering notebook — elbow, silhouette, cluster export</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-name">Anne Wambaire Mwangi</div>
+        <div class="footer-note">Data Engineering · Business Intelligence · Data Analytics · Data Science</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Anne-Wambaire-Mwangi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Anne-Wambaire-Mwangi/HRM-Crimes" target="_blank" rel="noopener">Repository</a>
+      </div>
+    </div>
+    <p class="footer-note" style="margin-top: 2rem;">Data source: HRM Open Data Hub · Last updated April 2026 · Data collection ongoing</p>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate bar charts when visible
+      if (entry.target.querySelector('.bar-fill')) {
+        entry.target.querySelectorAll('.bar-fill').forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.width = bar.dataset.width;
+          }, i * 120);
+        });
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
